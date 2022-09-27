@@ -17,3 +17,15 @@ WIP
 ## 项目设计
 
 WIP
+
+### 改进方向
+
+- 完善的 CI/CD
+- 多平台 Release（Debian / Archlinux / Homebrew / Windows）
+- Self upgrade ?
+- cli 命令补全
+- 历史命令补全
+- 改进输出样式（可配置）
+- 支持更多的命令？
+- JSON value 支持？
+- RawKV 模式
