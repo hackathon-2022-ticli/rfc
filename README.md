@@ -29,3 +29,4 @@ WIP
 - 支持更多的命令？
 - JSON value 支持？
 - RawKV 模式
+- 管道友好
