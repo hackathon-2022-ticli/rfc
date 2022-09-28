@@ -28,5 +28,8 @@ WIP
 - 改进输出样式（可配置）
 - 支持更多的命令？
 - JSON value 支持？
+- CJK / emoji 支持
 - RawKV 模式
 - 管道友好
+- Ascii Art？
+- 关键字高亮？
