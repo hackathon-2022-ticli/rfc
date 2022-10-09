@@ -109,7 +109,8 @@ $ ticli scan arr
 
 也可以用 `csv` 格式进行输出，方便数据的后续处理：
 ```sh
-$ ticli scan arr --csv --no-headers
+$ ticli scan arr --csv
+KEY,VALUE
 arrogance,10881
 arrogancy,10882
 arrogant,10883
