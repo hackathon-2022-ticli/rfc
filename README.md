@@ -26,9 +26,103 @@ CLI 对数据库管理者和开发者来说都是非常重要的一个工具，�
 
 ## 项目设计
 
-WIP
+TiCLI 为 TiKV 提供一个由 rust 编写的命令行工具 `ticli`。用户可以通过 `cargo` 来安装：
 
-### 改进方向
+```sh
+cargo install ticli
+```
+
+或者使用其他系统包管理器：
+
+```sh
+# Archlinux
+pacman -S ticli
+
+# Debian / Ubuntu
+apt install ticli
+
+# Rocky Linux / Fedora
+dnf install ticli
+
+# macOS
+brew install ticli
+```
+
+### Command line usage
+
+用户可以使用 `ticli` 执行基础的增删改查的命令：
+
+- `ticli GET <key>`
+- `ticli SET <key> <val>`
+- `ticli DEL <key>`
+- `ticli SCAN <prefix>`
+- `ticli INCR <key>`
+- `ticli DESC <key>`
+- `ticli STRLEN <key>`
+
+举个例子：
+
+```sh
+$ ticli INCR mycounter
+(integer) 9
+```
+
+上面这条命令的返回值是 `9`，`ticli` 的返回值是有类型的（包括 string, array, integer, nil, errors 等），
+左边的括号中显示了返回值的类型。`ticli` 只会在检测到 `stdout` 是 `tty` 的时候展示这些额外的类型信息：
+
+```sh
+$ ticli INCR mycounter > /tmp/output.txt
+$ cat /tmp/output.txt
+10
+```
+
+为了方便脚本编写，`ticli` 也支持通过管道顺序执行预先定义好的命令序列：
+
+```sh
+$ cat commands.txt
+SET arg_example "This is a single argument"
+STRLEN arg_example
+$ cat commands.txt | ticli
+OK
+(integer) 25
+```
+
+对于 `SCAN` 命令，`ticli` 提供了可读性更好的 `ascii` 表格来展示输出：
+
+```
+$ ticli scan arr
+┌────┬──────────────┬───────┐
+│ #  │     KEY      │ VALUE │
+├────┼──────────────┼───────┤
+│ 1  │ arrogance    │ 10881 │
+│ 2  │ arrogancy    │ 10882 │
+│ 3  │ arrogant     │ 10883 │
+│ 4  │ arrogantly   │ 10884 │
+│ 5  │ arrogantness │ 10885 │
+│ 6  │ arrogate     │ 10886 │
+│ 7  │ arrogatingly │ 10887 │
+│ 8  │ arrogation   │ 10888 │
+│ 9  │ arrogative   │ 10889 │
+│ 10 │ arrogator    │ 10890 │
+└────┴──────────────┴───────┘
+```
+
+也可以用 `csv` 格式进行输出，方便数据的后续处理：
+```sh
+$ ticli scan arr --csv --no-headers
+arrogance,10881
+arrogancy,10882
+arrogant,10883
+arrogantly,10884
+arrogantness,10885
+arrogate,10886
+arrogatingly,10887
+arrogation,10888
+arrogative,10889
+arrogator,10890
+```
+
+(WIP)
 
 - 完善的 CI/CD
 - 多平台 Release（Debian / Archlinux / Homebrew / Windows）
