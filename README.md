@@ -1,4 +1,4 @@
-# RFC: tcli in rust
+# RFC: TiKV cli in rust
 
 By *go.unwrap()* 团队
 
@@ -121,6 +121,28 @@ arrogation,10888
 arrogative,10889
 arrogator,10890
 ```
+
+### Interactive mode
+
+用命令方式运行 `ticli` 对脚本编写和测试来说非常有用，不过更多的时候我们会用到交互模式。
+交互模式会启动一个用于 REPL 的 shell，同样可以执行上面介绍的所有命令：
+
+```sh
+$ ticli
+[txn] http://127.0.0.1:2379> PING
+PONG
+```
+
+`ticli` 支持使用 TAB 键按命令名称前缀进行补全：
+
+```sh
+[txn] http://127.0.0.1:2379> SC<TAB>
+[txn] http://127.0.0.1:2379> SCAN
+```
+
+同时也提供 fish-shell 风格的历史命令补全：
+
+TODO: screenshot
 
 (WIP)
 
