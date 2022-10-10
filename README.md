@@ -67,7 +67,7 @@ $ ticli INCR mycounter
 (integer) 9
 ```
 
-上面这条命令的返回值是 `9`，`ticli` 的返回值是有类型的（包括 string, array, integer, nil, errors 等），
+上面这条命令的返回值是 `9`，`ticli` 的返回值是有类型的（包括 string, integer, nil, errors 等），
 左边的括号中显示了返回值的类型。`ticli` 只会在检测到 `stdout` 是 `tty` 的时候展示这些额外的类型信息：
 
 ```sh
@@ -130,20 +130,22 @@ arrogator,10890
 
 ```sh
 $ ticli
-[txn] http://127.0.0.1:2379> PING
+TiKV txn@http://127.0.0.1:2379> PING
 PONG
 ```
 
 `ticli` 支持使用 TAB 键按命令名称前缀进行补全：
 
 ```sh
-[txn] http://127.0.0.1:2379> SC<TAB>
-[txn] http://127.0.0.1:2379> SCAN
+TiKV txn@http://127.0.0.1:2379> SC<TAB>
+TiKV txn@http://127.0.0.1:2379> SCAN
 ```
 
-同时也提供 fish-shell 风格的历史命令补全：
+同时也提供 fish 风格的历史命令补全：
 
-TODO: screenshot
+![ticli-completion-screenshot-1](/assets/ticli-completion-1.jpeg)
+
+历史命令默认持久化到 `HOME` 目录下的 `ticli_history` 文件中，也可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 
 (WIP)
 
