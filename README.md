@@ -48,33 +48,37 @@ dnf install ticli
 brew install ticli
 ```
 
-### Command line usage
+### Command line
 
-用户可以使用 `ticli` 执行基础的增删改查的命令：
+用户可以使用 `ticli` 执行基础的增删改查等命令：
 
 - `ticli GET <key>`
 - `ticli SET <key> <val>`
 - `ticli DEL <key>`
-- `ticli SCAN <prefix>`
 - `ticli INCR <key>`
 - `ticli DESC <key>`
 - `ticli STRLEN <key>`
+- `ticli SCAN <prefix>`
+- `ticli COUNT <prefix>`
 - `ticli LOAD <csv>`
+- `ticli PING`
 
 举个例子：
 
 ![ticli-incr-1](./assets/ticli-incr-1.jpeg)
 
-`ticli` 只会在检测到 `stdout` 是 `tty` 的时候展示这些额外的类型信息：
+`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，
+只获取结果本身更方便解析，所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行
+格式化并展示命令耗时等额外的信息：
 
 ![ticli-incr-2](./assets/ticli-incr-2.jpeg)
 
-为了方便脚本编写，`ticli` 支持通过管道顺序执行预先定义好的命令序列：
+为了进一步方便脚本编写，`ticli` 支持通过管道顺序执行预先定义好的命令序列：
 
 ![ticli-cmd-seq](./assets/ticli-cmd-seq.jpeg)
 
-对于 `SCAN` 命令，`ticli` 提供可读性更好的 `ascii` 表格来展示输出，
-并且能正确排版 CJK 字符和 emoji 字符：
+对于 `SCAN` 等命令，`ticli` 提供可读性更好的 `ascii`
+表格排版，可以通过参数设置表格样式，并且能正确对齐 CJK 字符和 emoji 字符：
 
 ![ticli-scan-1](./assets/ticli-scan-1.jpeg)
 
@@ -82,7 +86,7 @@ brew install ticli
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
-### Interactive mode
+### Interactive shell
 
 用命令方式运行 `ticli` 对脚本编写和测试来说非常有用，不过更多的时候我们会用到交互模式。
 交互模式会启动一个用于 REPL 的 shell，同样可以执行上面介绍的所有命令：
@@ -91,6 +95,7 @@ brew install ticli
 $ ticli
 TiKV txn@http://127.0.0.1:2379> PING
 PONG
+Time: 0.006s
 ```
 
 `ticli` 支持使用 TAB 键按命令名称前缀进行补全：
@@ -105,3 +110,51 @@ TiKV txn@http://127.0.0.1:2379> SCAN
 ![ticli-completion-1](./assets/ticli-completion-1.jpeg)
 
 历史命令默认持久化到 `HOME` 目录下的 `ticli_history` 文件中，也可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
+
+### Keybindings
+Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑：
+
+| Keystroke             | Action                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------ |
+| Home                  | Move cursor to the beginning of line                                                             |
+| End                   | Move cursor to end of line                                                                       |
+| Left                  | Move cursor one character left                                                                   |
+| Right                 | Move cursor one character right                                                                  |
+| Ctrl-A, Home          | Move cursor to the beginning of line                                                             |
+| Ctrl-B, Left          | Move cursor one character left                                                                   |
+| Ctrl-C                | Interrupt/Cancel edition                                                                         |
+| Ctrl-D                | (if line _is_ empty) End of File                                                                 |
+| Ctrl-D, Del           | (if line is _not_ empty) Delete character under cursor                                           |
+| Ctrl-E, End           | Move cursor to end of line                                                                       |
+| Ctrl-F, Right         | Move cursor one character right                                                                  |
+| Ctrl-H, Backspace     | Delete character before cursor                                                                   |
+| Ctrl-I, Tab           | Next completion                                                                                  |
+| Ctrl-J, Ctrl-M, Enter | Finish the line entry                                                                            |
+| Ctrl-K                | Delete from cursor to end of line                                                                |
+| Ctrl-L                | Clear screen                                                                                     |
+| Ctrl-N, Down          | Next match from history                                                                          |
+| Ctrl-P, Up            | Previous match from history                                                                      |
+| Ctrl-R                | Reverse Search history (Ctrl-S forward, Ctrl-G cancel)                                           |
+| Ctrl-T                | Transpose previous character with current character                                              |
+| Ctrl-U                | Delete from start of line to cursor                                                              |
+| Ctrl-V                | Insert any special character without performing its associated action (#65)                      |
+| Ctrl-W                | Delete word leading up to cursor (using white space as a word boundary)                          |
+| Ctrl-X Ctrl-U         | Undo                                                                                             |
+| Ctrl-Y                | Paste from Yank buffer                                                                           |
+| Ctrl-Y                | Paste from Yank buffer (Meta-Y to paste next yank instead)                                       |
+| Ctrl-Z                | Suspend (Unix only)                                                                              |
+| Ctrl-\_               | Undo                                                                                             |
+| Meta-<                | Move to first entry in history                                                                   |
+| Meta->                | Move to last entry in history                                                                    |
+| Meta-B, Alt-Left      | Move cursor to previous word                                                                     |
+| Meta-C                | Capitalize the current word                                                                      |
+| Meta-D                | Delete forwards one word                                                                         |
+| Meta-F, Alt-Right     | Move cursor to next word                                                                         |
+| Meta-L                | Lower-case the next word                                                                         |
+| Meta-T                | Transpose words                                                                                  |
+| Meta-U                | Upper-case the next word                                                                         |
+| Meta-Y                | See Ctrl-Y                                                                                       |
+| Meta-Backspace        | Kill from the start of the current word, or, if between words, to the start of the previous word |
+| Meta-0, 1, ..., -     | Specify the digit to the argument. `–` starts a negative argument.                               |
+
+（有无必要支持 Vi 模式？）
