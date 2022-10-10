@@ -88,7 +88,7 @@ OK
 (integer) 25
 ```
 
-对于 `SCAN` 命令，`ticli` 提供了可读性更好的 `ascii` 表格来展示输出，
+对于 `SCAN` 命令，`ticli` 提供可读性更好的 `ascii` 表格来展示输出，
 并且能正确排版 CJK 字符和 emoji 字符：
 
 ![ticli-scan-screenshot-1](./assets/ticli-scan-screenshot-1.jpeg)
