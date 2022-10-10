@@ -85,8 +85,10 @@ brew install ticli
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
-另外，为了提升工具的易用性，`ticli` 提供包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全，
-减轻用户的记忆负担。
+为了最大程度地提升工具的易用性，减轻用户的心智负担，`ticli` 提供详细的 help 文档，完善的错误处理，
+以及包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全。
+得益于 rust 优秀的语言特性，很多功能都可以通过宏在编译阶段自动生成，不需要额外进行开发和维护，
+而且能和代码注释完美保持一致。
 
 ### Interactive shell
 
