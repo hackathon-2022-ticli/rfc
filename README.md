@@ -63,32 +63,28 @@ brew install ticli
 - `ticli LOAD <csv>`
 - `ticli PING`
 
-举个例子：
-
-![ticli-incr-1](./assets/ticli-incr-1.jpeg)
-
-`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身更方便解析，
-所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
-
-![ticli-incr-2](./assets/ticli-incr-2.jpeg)
-
-为了进一步方便脚本编写，`ticli` 支持通过管道顺序执行预先定义好的命令序列：
-
-![ticli-cmd-seq](./assets/ticli-cmd-seq.jpeg)
-
-对于 `SCAN` 等命令，`ticli` 提供可读性更好的 `ascii`
-表格排版，可以通过参数设置表格样式，并且能正确对齐 CJK 字符和 emoji 字符：
+以 `SCAN` 命令为例，`ticli` 使用 ASCII 表格排版，可以正确对齐 CJK 字符和 emoji 字符，
+并且能通过参数设置不同的表格样式：
 
 ![ticli-scan-1](./assets/ticli-scan-1.jpeg)
 
-除了 ascii 表格，`ticli` 也支持 `csv` 等其他格式的导出：
+除了 ASCII 表格，`ticli` 也支持 `csv` 等其他格式的导出：
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
-为了最大程度地提升工具的易用性，减轻用户的心智负担，`ticli` 提供详细的 help 文档，完善的错误处理，
+`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身反而更方便解析，
+所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
+
+![ticli-incr-1](./assets/ticli-incr-1.jpeg)
+
+`ticli` 也支持通过管道顺序执行预先定义好的命令序列：
+
+![ticli-cmd-seq](./assets/ticli-cmd-seq.jpeg)
+
+`ticli` 提供详细的 help 文档，完善的错误处理，
 以及包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全。
-得益于 rust 优秀的语言特性，很多功能都可以通过宏在编译阶段自动生成，不需要额外进行开发和维护，
-而且能和代码注释完美保持一致。
+得益于 rust 优秀的语言特性和丰富的 CLI 生态，很多功能都可以在编译阶段自动生成，不需要额外进行开发和维护，
+而且和代码注释始终保持一致。
 
 ### Interactive shell
 
@@ -101,7 +97,7 @@ brew install ticli
 
 ![ticli-repl-2](./assets/ticli-repl-2.jpeg)
 
-在 Interactive 模式下，`ticli` 可以记录用户输入的命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
+在交互模式下，`ticli` 可以记录用户输入的命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
 用户可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 除了提供 bash 风格的 `Ctrl-R` 历史命令搜索，`ticli` 还会支持体验更好的 fish 风格补全：
 
