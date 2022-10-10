@@ -73,7 +73,7 @@ brew install ticli
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
-`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身反而更方便解析，
+结果通常以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身反而更方便解析，
 所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
 
 ![ticli-incr-1](./assets/ticli-incr-1.jpeg)
@@ -105,7 +105,7 @@ brew install ticli
 ![ticli-repl-3](./assets/ticli-repl-3.jpeg)
 
 ### Keybindings
-Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑：
+Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑（以及 Vi 模式？）：
 
 | Keystroke             | Action                                                                                           |
 | --------------------- | ------------------------------------------------------------------------------------------------ |
@@ -149,5 +149,3 @@ Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑：
 | Meta-Y                | See Ctrl-Y                                                                                       |
 | Meta-Backspace        | Kill from the start of the current word, or, if between words, to the start of the previous word |
 | Meta-0, 1, ..., -     | Specify the digit to the argument. `–` starts a negative argument.                               |
-
-（有无必要支持 Vi 模式？）
