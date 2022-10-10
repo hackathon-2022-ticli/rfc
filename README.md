@@ -105,21 +105,3 @@ TiKV txn@http://127.0.0.1:2379> SCAN
 ![ticli-completion-1](./assets/ticli-completion-1.jpeg)
 
 历史命令默认持久化到 `HOME` 目录下的 `ticli_history` 文件中，也可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
-
-(WIP)
-
-- 完善的 CI/CD
-- 多平台 Release（Debian / Archlinux / Homebrew / Windows）
-- Self upgrade ?
-- cli 命令补全
-- 历史命令补全
-- 改进输出样式（可配置）
-- 支持更多的命令？
-- JSON value 支持？
-- CJK / emoji 支持
-- RawKV 模式
-- 管道友好
-- Ascii Art？
-- 关键字高亮？
-- Watch 模式（能比直接使用 `watch` 命令更香吗？）
-- 更丰富的元数据展示？
