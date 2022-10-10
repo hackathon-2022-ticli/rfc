@@ -73,7 +73,7 @@ brew install ticli
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
-结果通常以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身反而更方便解析，
+命令执行结果通常以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身反而更方便解析，
 所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
 
 ![ticli-incr-1](./assets/ticli-incr-1.jpeg)
