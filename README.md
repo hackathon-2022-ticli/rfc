@@ -93,7 +93,7 @@ brew install ticli
 
 ```sh
 $ ticli
-TiKV txn@http://127.0.0.1:2379> PING
+TiKV Txn@http://127.0.0.1:2379> PING
 PONG
 Time: 0.006s
 ```
@@ -101,15 +101,15 @@ Time: 0.006s
 `ticli` 支持使用 TAB 键按命令名称前缀进行补全：
 
 ```sh
-TiKV txn@http://127.0.0.1:2379> SC<TAB>
-TiKV txn@http://127.0.0.1:2379> SCAN
+TiKV Txn@http://127.0.0.1:2379> SC<TAB>
+TiKV Txn@http://127.0.0.1:2379> SCAN
 ```
 
-同时也提供 fish 风格的历史命令补全：
+Interactive 模式下，`ticli` 可以记录用户的历史命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
+用户可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
+除了提供 bash 风格的 `Ctrl-R` 历史命令搜索，`ticli` 还会支持体验更好的 fish 风格补全：
 
 ![ticli-completion-1](./assets/ticli-completion-1.jpeg)
-
-历史命令默认持久化到 `HOME` 目录下的 `ticli_history` 文件中，也可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 
 ### Keybindings
 Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑：
