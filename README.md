@@ -15,14 +15,14 @@ By *go.unwrap()* 团队
 CLI 对数据库管理人员和开发者来说都是非常重要的工具，它可以方便用户编写脚本和排查问题，也能帮助用户快速上手试用产品。
 我们熟知的 MySQL, PostgreSQL, Redis 等数据库都有很好用的 CLI，
 但目前 TiKV 官方并没有类似定位的工具，READEME 中只有 SDK 代码调用的示例，
-所以我们觉得为 TiKV 实现一个好用的 CLI 应该是一个很有意义的事情。
+所以为 TiKV 实现一个好用的 CLI 应该是一个很有意义的事情。
 
 Github 上目前有 2 个相关的项目：
 [shafreeck/tikv-cli](https://github.com/shafreeck/tikv-cli) 和 [c4pt0r/tcli](https://github.com/c4pt0r/tcli)。
 tikv-cli 功能比较简陋，已经不再维护；tcli 是 [dongxu](https://github.com/c4pt0r) 用 go 实现的，功能比较完备，
 也在持续维护当中，不过使用体验上和 [mycli](https://github.com/dbcli/mycli) 等优秀的 cli 还有一定的差距。
-考虑到 TiKV 本身的 rust 属性，以及 rust 在 CLI 开发中的绝佳体验，TiKV 的 CLI 没有理由不用 rust 来实现。所以我们计划
-以 tcli 和 redis-cli 为蓝本，打造一款更好用 的 TiKV CLI，朝着 `ultimate CLI tool for TiKV` 的目标更进一步。
+考虑到 TiKV 本身的 rust 属性，以及 rust 在 CLI 开发中的绝佳体验，TiKV 的 CLI 没有理由不用 rust 来实现。
+所以我们计划以 tcli 和 redis-cli 为蓝本，打造一款更好用的 TiKV CLI。
 
 ## 项目设计
 
@@ -67,9 +67,8 @@ brew install ticli
 
 ![ticli-incr-1](./assets/ticli-incr-1.jpeg)
 
-`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，
-只获取结果本身更方便解析，所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行
-格式化并展示命令耗时等额外的信息：
+`ticli` 通常会将结果以 human readable 的形式展示出来，不过当我们编写脚本的时候，只获取结果本身更方便解析，
+所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
 
 ![ticli-incr-2](./assets/ticli-incr-2.jpeg)
 
@@ -86,30 +85,25 @@ brew install ticli
 
 ![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
+另外，为了提升工具的易用性，`ticli` 提供包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全，
+减轻用户的记忆负担。
+
 ### Interactive shell
 
 用命令方式运行 `ticli` 对脚本编写和测试来说非常有用，不过更多的时候我们会用到交互模式。
 交互模式会启动一个用于 REPL 的 shell，同样可以执行上面介绍的所有命令：
 
-```sh
-$ ticli
-TiKV Txn@http://127.0.0.1:2379> PING
-PONG
-Time: 0.006s
-```
+![ticli-repl-1](./assets/ticli-repl-1.jpeg)
 
 `ticli` 支持使用 TAB 键按命令名称前缀进行补全：
 
-```sh
-TiKV Txn@http://127.0.0.1:2379> SC<TAB>
-TiKV Txn@http://127.0.0.1:2379> SCAN
-```
+![ticli-repl-2](./assets/ticli-repl-2.jpeg)
 
-Interactive 模式下，`ticli` 可以记录用户的历史命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
+在 Interactive 模式下，`ticli` 可以记录用户输入的命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
 用户可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 除了提供 bash 风格的 `Ctrl-R` 历史命令搜索，`ticli` 还会支持体验更好的 fish 风格补全：
 
-![ticli-completion-1](./assets/ticli-completion-1.jpeg)
+![ticli-repl-3](./assets/ticli-repl-3.jpeg)
 
 ### Keybindings
 Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑：
