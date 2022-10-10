@@ -62,6 +62,7 @@ brew install ticli
 - `ticli COUNT <prefix>`
 - `ticli LOAD <csv>`
 - `ticli PING`
+- ...
 
 以 `SCAN` 命令为例，`ticli` 使用 ASCII 表格排版，可以正确对齐 CJK 字符和 emoji 字符，
 并且能通过参数设置不同的表格样式：
