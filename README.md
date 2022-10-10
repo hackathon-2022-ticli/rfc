@@ -1,4 +1,4 @@
-# RFC: TiKV cli in rust
+# RFC: TiKV CLI in Rust （WIP)
 
 By *go.unwrap()* 团队
 
