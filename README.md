@@ -26,7 +26,7 @@ tikv-cli 功能比较简陋，已经不再维护；tcli 是 [dongxu](https://git
 
 ## 项目设计
 
-TiCLI 为 TiKV 提供一个由 rust 编写的命令行工具 `ticli`。用户可以通过 `cargo` 来安装：
+为 TiKV 提供一个由 rust 编写的命令行工具 `ticli`。用户可以通过 `cargo` 来安装：
 
 ```sh
 cargo install ticli
@@ -63,53 +63,24 @@ brew install ticli
 
 举个例子：
 
-```sh
-$ ticli INCR mycounter
-(integer) 9
-```
+![ticli-incr-1](./assets/ticli-incr-1.jpeg)
 
-上面这条命令的返回值是 `9`，`ticli` 的返回值是有类型的（包括 string, integer, nil, errors 等），
-左边的括号中显示了返回值的类型。`ticli` 只会在检测到 `stdout` 是 `tty` 的时候展示这些额外的类型信息：
+`ticli` 只会在检测到 `stdout` 是 `tty` 的时候展示这些额外的类型信息：
 
-```sh
-$ ticli INCR mycounter > /tmp/output.txt
-$ cat /tmp/output.txt
-10
-```
+![ticli-incr-2](./assets/ticli-incr-2.jpeg)
 
 为了方便脚本编写，`ticli` 支持通过管道顺序执行预先定义好的命令序列：
 
-```sh
-$ cat commands.txt
-SET arg_example "This is a single argument"
-STRLEN arg_example
-$ cat commands.txt | ticli
-OK
-(integer) 25
-```
+![ticli-cmd-seq](./assets/ticli-cmd-seq.jpeg)
 
 对于 `SCAN` 命令，`ticli` 提供可读性更好的 `ascii` 表格来展示输出，
 并且能正确排版 CJK 字符和 emoji 字符：
 
-![ticli-scan-screenshot-1](./assets/ticli-scan-screenshot-1.jpeg)
+![ticli-scan-1](./assets/ticli-scan-1.jpeg)
 
-除了 ascii 表格，`ticli` 也支持 `csv` 格式的导出：
-```sh
-$ ticli scan arr --csv
-KEY,VALUE
-arrogance,10881
-arrogancy,10882
-arrogant,10883
-arrogantly,10884
-arrogantness,10885
-arrogate,10886
-arrogatingly,10887
-arrogation,10888
-arrogative,10889
-arrogator,10890
-arr烫烫烫,🔥🔥🔥
-arr退退退,🤺🤺🤺
-```
+除了 ascii 表格，`ticli` 也支持 `csv` 等其他格式的导出：
+
+![ticli-scan-2](./assets/ticli-scan-2.jpeg)
 
 ### Interactive mode
 
@@ -131,7 +102,7 @@ TiKV txn@http://127.0.0.1:2379> SCAN
 
 同时也提供 fish 风格的历史命令补全：
 
-![ticli-completion-screenshot-1](./assets/ticli-completion-1.jpeg)
+![ticli-completion-1](./assets/ticli-completion-1.jpeg)
 
 历史命令默认持久化到 `HOME` 目录下的 `ticli_history` 文件中，也可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 
