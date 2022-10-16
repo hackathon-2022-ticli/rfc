@@ -8,7 +8,7 @@ By *go.unwrap()* 团队
 
 ## 项目介绍
 
-用 rust 为 TiKV 实现一个 modern cli。
+用 Rust 为 TiKV 实现一个 modern CLI。
 
 ## 背景&动机
 
@@ -50,37 +50,39 @@ brew install ticli
 
 ### Command line
 
-用户可以使用 `ticli` 执行基础的增删改查等命令：
+`ticli` 可以执行基础的增删改查等命令，也可以查看 pd 实例和 tikv stores 等集群信息：
 
 - `ticli GET <key>`
 - `ticli SET <key> <val>`
 - `ticli DEL <key>`
 - `ticli INCR <key>`
-- `ticli DESC <key>`
+- `ticli DECR <key>`
 - `ticli STRLEN <key>`
 - `ticli SCAN <prefix>`
 - `ticli COUNT <prefix>`
 - `ticli LOAD <csv>`
 - `ticli PING`
+- `ticli INFO pd`
+- `ticli INFO store`
 - ...
 
-以 `SCAN` 命令为例，`ticli` 使用 ASCII 表格排版，可以正确对齐 CJK 字符和 emoji 字符，
+以 `SCAN` 命令为例，`ticli` 使用 ASCII 表格对输出内容排版，可以正确对齐 CJK 字符和 emoji 字符，
 并且能通过参数设置不同的表格样式：
 
-![ticli-scan-1](./assets/ticli-scan-1.jpeg)
+![ticli-scan-1](./assets/ticli-scan-1.png)
 
-除了 ASCII 表格，`ticli` 也支持 `csv` 等其他格式的导出：
+除了 ASCII 表格，`ticli` 也支持 `csv`, `json` 等其他格式的导出：
 
-![ticli-scan-2](./assets/ticli-scan-2.jpeg)
+![ticli-scan-2](./assets/ticli-scan-2.png)
 
 命令执行结果通常以 human readable 的形式展示出来，不过当我们编写脚本的时候，只输出原始结果更方便解析，
 所以 `ticli` 只会在检测到 `stdout` 是 `tty` 的时候进行格式化并展示命令耗时等额外的信息：
 
-![ticli-incr-1](./assets/ticli-incr-1.jpeg)
+![ticli-incr-1](./assets/ticli-incr-1.png)
 
 `ticli` 也支持通过管道顺序执行预先定义好的命令序列：
 
-![ticli-cmd-seq](./assets/ticli-cmd-seq.jpeg)
+![ticli-cmd-seq](./assets/ticli-cmd-seq.png)
 
 `ticli` 提供详细的 help 文档，完善的错误处理，
 以及包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全。
@@ -92,17 +94,17 @@ brew install ticli
 用命令方式运行 `ticli` 对脚本编写和测试来说非常有用，不过更多的时候我们会用到交互模式。
 交互模式会启动一个用于 REPL 的 shell，同样可以执行上面介绍的所有命令：
 
-![ticli-repl-1](./assets/ticli-repl-1.jpeg)
+![ticli-repl-1](./assets/ticli-repl-1.png)
 
 `ticli` 支持使用 TAB 键按命令名称前缀进行补全：
 
-![ticli-repl-2](./assets/ticli-repl-2.jpeg)
+![ticli-repl-2](./assets/ticli-repl-2.png)
 
 在交互模式下，`ticli` 可以记录用户输入的命令，默认保存在 `HOME` 目录下的 `.ticli_history` 文件中，
 用户可以通过 `TICLI_HISTFILE` 环境变量指定其他路径。
 除了提供 bash 风格的 `Ctrl-R` 历史命令搜索，`ticli` 还会支持体验更好的 fish 风格补全：
 
-![ticli-repl-3](./assets/ticli-repl-3.jpeg)
+![ticli-repl-3](./assets/ticli-repl-3.png)
 
 ### Keybindings
 Interactive 模式下，`ticli` 提供 Unix/Emacs 风格的键绑（以及 Vi 模式？）：
