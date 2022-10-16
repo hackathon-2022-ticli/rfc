@@ -1,0 +1,84 @@
+\e[1;32m❯ ticli\e[0m incr mycounter
+╭───────────┬───────╮
+│    \e[1;32mKEY\e[0m    │ \e[1;32mVALUE\e[0m │
+├───────────┼───────┤
+│ mycounter │   9   │
+╰───────────┴───────╯
+\e[1;30mTime: 0.005s\e[0m
+
+\e[1;32m❯ ticli\e[0m incr mycounter > /tmp/output.txt
+\e[1;32m❯ cat\e[0m /tmp/output.txt
+10
+
+\e[1;32m❯ cat\e[0m commands.txt
+SET arg_example "This is a single argument"
+STRLEN arg_example
+
+\e[1;32m❯ cat\e[0m commands.txt | ticli
+\e[0;32mOK\e[0m
+\e[1;30mTime: 0.005s\e[0m
+╭─────────────┬────────╮
+│     \e[1;32mKEY\e[0m     │ \e[1;32mSTRLEN\e[0m │
+├─────────────┼────────┤
+│ arg_example │   25   │
+╰─────────────┴────────╯
+\e[1;30mTime: 0.003s\e[0m
+
+
+\e[1;32m❯ ticli\e[0m scan arr
+╭───┬─────────────────┬───────╮
+│ \e[1;32m#\e[0m │       \e[1;32mKEY\e[0m       │ \e[1;32mVALUE\e[0m │
+├───┼─────────────────┼───────┤
+│ 1 │ arrogance       │ 10881 │
+│ 2 │ arrogancy       │ 10882 │
+│ 3 │ arrogant        │ 10883 │
+│ 4 │ arrogantly      │ 10884 │
+│ 5 │ arrogantness    │ 10885 │
+│ 6 │ arrogate        │ 10886 │
+│ 7 │ arrogatingly    │ 10887 │
+│ 8 │ arr🔥烫烫烫     │ 10888 │
+│ 9 │ arr退退退🤺🤺🤺 │ 10889 │
+╰───┴─────────────────┴───────╯
+\e[1;30mTime: 0.015s\e[0m
+
+\e[1;32m❯ ticli\e[0m scan arr --style minimal
+  \e[1;32m#\e[0m | \e[1;32mKEY\e[0m             | \e[1;32mVALUE\e[0m
+ ---+-----------------+-------
+  1 | arrogance       | 10881
+  2 | arrogancy       | 10882
+  3 | arrogant        | 10883
+  4 | arrogantly      | 10884
+  5 | arrogantness    | 10885
+  6 | arrogate        | 10886
+  7 | arrogatingly    | 10887
+  8 | arr🔥烫烫烫     | 10888
+  9 | arr退退退🤺🤺🤺 | 10889
+\e[1;30mTime: 0.015s\e[0m
+
+\e[1;32m❯ ticli\e[0m scan arr --csv --no-header
+KEY,VALUE
+arrogance,10881
+arrogancy,10882
+arrogant,10883
+arrogantly,10884
+arrogantness,10885
+arrogate,10886
+arrogatingly,10887
+arr🔥烫烫烫,10888
+arr退退退🤺🤺🤺,10889
+\e[1;30mTime: 0.015s\e[0m
+
+
+\e[1;32m❯ ticli\e[0m --mode raw
+\e[1;33mTiKV@Raw\e[0m 127.0.0.1:2379> PING
+\e[0;32mPONG\e[0m
+\e[1;30mTime: 0.006s\e[0m
+
+\e[1;32m❯ ticli\e[0m
+\e[1;34mTiKV@Txn\e[0m 127.0.0.1:2379> ST<TAB>
+\e[1;34mTiKV@Txn\e[0m 127.0.0.1:2379> STRLEN
+
+
+\e[1;32m❯ ticli\e[0m
+\e[1;34mTiKV@Txn\e[0m 127.0.0.1:2379> \e[1;34minc\e[1;30m\e[1;107mr\e[0m \e[0;90mmycounter\e[0m
+
