@@ -1,4 +1,4 @@
-# RFC: TiKV CLI in Rust （WIP)
+# RFC: TiKV CLI in Rust
 
 By *go.unwrap()* 团队
 
@@ -12,21 +12,21 @@ By *go.unwrap()* 团队
 
 ## 背景&动机
 
-CLI 对数据库管理人员和开发者来说都是非常重要的工具，它可以方便用户编写脚本和排查问题，也能帮助用户快速上手试用产品。
+CLI 对数据库管理人员和开发者来说都是非常重要的工具，它可以方便用户编写自动化脚本，排查线上问题，也能帮助用户快速上手试用产品。
 我们熟知的 MySQL, PostgreSQL, Redis 等数据库都有很好用的 CLI，
-但目前 TiKV 官方并没有类似定位的工具，READEME 中只有 SDK 代码调用的示例，
+但目前 TiKV 官方并没有类似定位的工具，README 中也只有 SDK 代码调用的示例，
 所以为 TiKV 实现一个好用的 CLI 应该是一个很有意义的事情。
 
 Github 上目前有 2 个相关的项目：
 [shafreeck/tikv-cli](https://github.com/shafreeck/tikv-cli) 和 [c4pt0r/tcli](https://github.com/c4pt0r/tcli)。
 tikv-cli 功能比较简陋，已经不再维护；tcli 是 [dongxu](https://github.com/c4pt0r) 用 go 实现的，功能比较完备，
-也在持续维护当中，不过使用体验上和 [mycli](https://github.com/dbcli/mycli) 等优秀的 cli 还有一定的差距。
-考虑到 TiKV 本身的 rust 属性，以及 rust 在 CLI 开发中的绝佳体验，TiKV 的 CLI 没有理由不用 rust 来实现。
+但只支持交互模式，使用体验上也和 [mycli](https://github.com/dbcli/mycli) 等优秀的 CLI 还有一定的差距。
+考虑到 TiKV 本身的 Rust 属性，以及 Rust 在 CLI 开发中的绝佳体验，TiKV 的 CLI 没有理由不用 Rust 来实现。
 所以我们计划以 tcli 和 redis-cli 为蓝本，打造一款更好用的 TiKV CLI。
 
 ## 项目设计
 
-为 TiKV 提供一个由 rust 编写的命令行工具 `ticli`。用户可以通过 `cargo` 来安装：
+为 TiKV 提供一个由 Rust 编写的命令行工具 `ticli`。用户可以通过 `cargo` 来安装：
 
 ```sh
 cargo install ticli
@@ -52,18 +52,18 @@ brew install ticli
 
 `ticli` 可以执行基础的增删改查等命令，也可以查看 pd 实例和 tikv stores 等集群信息：
 
-- `ticli GET <key>`
-- `ticli SET <key> <val>`
-- `ticli DEL <key>`
-- `ticli INCR <key>`
-- `ticli DECR <key>`
-- `ticli STRLEN <key>`
-- `ticli SCAN <prefix>`
-- `ticli COUNT <prefix>`
-- `ticli LOAD <csv>`
-- `ticli PING`
-- `ticli INFO pd`
-- `ticli INFO store`
+- `ticli get <key>`
+- `ticli set <key> <val>`
+- `ticli del <key>`
+- `ticli incr <key>`
+- `ticli decr <key>`
+- `ticli strlen <key>`
+- `ticli scan <prefix>`
+- `ticli count <prefix>`
+- `ticli load <csv>`
+- `ticli ping`
+- `ticli info pd`
+- `ticli info store`
 - ...
 
 以 `SCAN` 命令为例，`ticli` 使用 ASCII 表格对输出内容排版，可以正确对齐 CJK 字符和 emoji 字符，
@@ -86,7 +86,7 @@ brew install ticli
 
 `ticli` 提供详细的 help 文档，完善的错误处理，
 以及包括 `bash`, `zsh`, `fish`, `elvish` 和 `powershell` 在内的各种类型的 shell 补全。
-得益于 rust 优秀的语言特性和丰富的 CLI 生态，很多功能都可以在编译阶段自动生成，不需要额外进行开发和维护，
+得益于 Rust 优秀的语言特性和丰富的 CLI 生态，很多功能都可以在编译阶段自动生成，不需要额外进行开发和维护，
 而且和代码注释始终保持一致。
 
 ### Interactive shell
