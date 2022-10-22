@@ -6,6 +6,8 @@ By *go.unwrap()* 团队
 | :---:                                                                                     | :---:                                                                                          | :---:                                                                                                 |
 | [wfxr](https://github.com/wfxr)                                                           | [Xuyuanp](https://github.com/xuyuanp)                                                          | [Bowser1704](https://github.com/Bowser1704)                                                           |
 
+项目仓库：https://github.com/hackathon-2022-ticli/ticli
+
 ## 项目介绍
 
 用 Rust 为 TiKV 实现一个 modern CLI。
